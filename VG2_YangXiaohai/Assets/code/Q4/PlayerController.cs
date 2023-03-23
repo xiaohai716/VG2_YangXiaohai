@@ -10,6 +10,14 @@ namespace FPS
     {
         public static PlayerController instance;
 
+        //Outlets
+        public Transform povOrigin;
+        public Transform projectileOrigin;
+        public GameObject projectilePrefab;
+
+        //Configuration
+        public float attackRange;
+
         //State Tracking
         public List<int> keyIdsObtained;
 
@@ -19,36 +27,48 @@ namespace FPS
             instance = this;
             keyIdsObtained = new List<int>();
         }
-        void Update()
+
+        void OnPrimaryAttack()
         {
-            Keyboard keyboardInput = Keyboard.current;
-            Mouse mouseInput = Mouse.current;
-            if(keyboardInput != null && mouseInput != null)
+            RaycastHit hit;
+            bool hitSomething = Physics.Raycast(povOrigin.position, povOrigin.forward, out hit, attackRange);
+            if (hitSomething)
             {
-                if (keyboardInput.eKey.wasPressedThisFrame)
+                Rigidbody targetRigidbody = hit.transform.GetComponent<Rigidbody>();
+                if (targetRigidbody)
                 {
-                    Vector2 mousePosition = mouseInput.position.ReadValue();
+                    targetRigidbody.AddForce(povOrigin.forward * 100f, ForceMode.Impulse);
+                }
+            }
+        }
 
-                    Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-                    RaycastHit hit;
-                    if(Physics.Raycast(ray, out hit, 2f))
-                    {
-                        print("Interacted with " + hit.transform.name + "from " + hit.distance + "m.");
+        void OnSecondaryAttack()
+        {
+            GameObject projectile = Instantiate(projectilePrefab,
+                                                projectileOrigin.position,
+                                                Quaternion.LookRotation(povOrigin.forward));
+            projectile.transform.localScale = Vector3.one * 5f;
+            projectile.GetComponent<Rigidbody>().AddForce(povOrigin.forward * 25f, ForceMode.Impulse);
+        }
 
-                        //Doors
-                        Door targetDoor = hit.transform.GetComponent<Door>();
-                        if (targetDoor)
-                        {
-                            targetDoor.Interact();
-                        }
+        void OnInteract()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(povOrigin.position, povOrigin.forward ,out hit, 2f))
+            {
 
-                        //Buttons
-                        InteractButton targetButton = hit.transform.GetComponent<InteractButton>();
-                        if(targetButton != null)
-                        {
-                            targetButton.Interact();
-                        }
-                    }
+                //Doors
+                Door targetDoor = hit.transform.GetComponent<Door>();
+                if (targetDoor)
+                {
+                    targetDoor.Interact();
+                }
+
+                //Buttons
+                InteractButton targetButton = hit.transform.GetComponent<InteractButton>();
+                if (targetButton != null)
+                {
+                    targetButton.Interact();
                 }
             }
         }
