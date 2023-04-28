@@ -1444,6 +1444,7 @@ Transform:
   - {fileID: 5145890837939541511}
   - {fileID: 4225816867991766999}
   - {fileID: 7388189949116294350}
+  - {fileID: 5503704950404274826}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1525,6 +1526,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09d4f363a6c2a547abd95babd0993e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectionIndicator: {fileID: 5010869215815566190}
+  attackTarget: {fileID: 0}
+  projectilePrefab: {fileID: 260350308419337585, guid: 0c6baf743da684b4186e43b7ff103381, type: 3}
+  attackDistance: 10
+  attackDelay: 1
+--- !u!1 &5010869215815566190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5503704950404274826}
+  - component: {fileID: 5994550572089688543}
+  m_Layer: 0
+  m_Name: Indicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5503704950404274826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5010869215815566190}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5642524301378447588}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!119 &5994550572089688543
+Projector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5010869215815566190}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.1
+  m_FarClipPlane: 100
+  m_FieldOfView: 60
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 1.29
+  m_Material: {fileID: 2100000, guid: 7ff8536a169a49a40aa91a9dc21c43ab, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 119
 --- !u!1 &5098633421005672709
 GameObject:
   m_ObjectHideFlags: 0
